@@ -1,0 +1,27 @@
+.vertical-center {
+	height: 35px;
+	display: flex;
+	align-items: center
+}
+
+body{
+	padding-top: 30px;
+}
+
+@media screen and (min-width: 1200px) {
+    .to-left{
+    	margin-left: -60px;
+    }
+    #middleName{
+    	margin-left: -100px;
+    }
+    #label-middleName{
+    	margin-left: -10px;
+    }
+    #lastName{
+    	margin-left: -160px;
+    }
+    #label-lastName{
+    	margin-left: -50px;
+    }
+}
