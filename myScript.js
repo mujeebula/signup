@@ -1,8 +1,8 @@
 $(document).ready(function(){
-      var date_input=$('input[name="date"]');
+      var date_input=$('#dateOfBirth');
       var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
       var options={
-        format: 'dd/mm/yyyy',
+        format: 'yyyy-mm-dd',
         container: container,
         endDate: '+0d',
         todayHighlight: true,
@@ -13,21 +13,21 @@ $(document).ready(function(){
 console.log(JSON.parse(localStorage.getItem('signupDetails')));
 
 $("#pwd").focusout(function(){
-  testPassword($(this).val());
+  testSignupPassword($(this).val());
 });
 
 $("#repeat-pwd").focusout(function(){
-  testRepeatPassword($(this).val());
+  testSignupRepeatPassword($(this).val());
 });
 
 /*
   This function validates form for password constraints.
   On success it stores the data in Local Storage.
 */
-function validateForm() {
-  if(testPassword($("#pwd").val())){
-    if(testRepeatPassword($("#repeat-pwd").val())){
-      if($("#pwd").val() == $("#repeat-pwd").val()){
+function validateSignupForm() {
+  if(testSignupPassword($("#signup-pwd").val())){
+    if(testSignupRepeatPassword($("#signup-repeat-pwd").val())){
+      if($("#signup-pwd").val() == $("#signup-repeat-pwd").val()){
         console.log("correct pwd");
         storeUserData();
         return true;
@@ -43,40 +43,66 @@ function validateForm() {
   }
 }
 
-function validateLogin(){
-  if(testPassword($("#pwd").val())){
+function validateLoginForm(){
+  if(testLoginPassword($("#login-pwd").val())){
     return true;
   }else{
     return false;
   }
 }
 
+function testLoginPassword(password) {
+  if(!(password.length >= 8)){
+    $("#login-err-pwd").text("Password length should be greater than 7").show();
+    return false;
+  }
+  if(!(/[A-Z]+/).test(password)){
+    $("#login-err-pwd").text("Password must have atleast one upper case letter").show();
+    return false;
+  }
+  if(!(/[a-z]+/).test(password)){
+    $("#login-err-pwd").text("Password must have atleast one lower case letter").show();
+    return false;
+  }
+  if(!(/[0-9]+/).test(password)){
+    $("#login-err-pwd").text("Password must have atleast one digit").show();
+    return false;
+  }
+  if(!(/[^a-zA-Z0-9]+/).test(password)){
+    $("#login-err-pwd").text("Password must have atleast one special character").show();
+    return false;
+  }
+  $("#login-err-pwd").hide();
+  return true;
+}
+
+
 /*
   It verifies if the password follows all constraints.
   Else it shows the first un-sattisfied constraint.
 */
-function testPassword(password) {
+function testSignupPassword(password) {
   if(!(password.length >= 8)){
-    $("#err-pwd").text("Password length should be greater than 7").show();
+    $("#signup-err-pwd").text("Password length should be greater than 7").show();
     return false;
   }
   if(!(/[A-Z]+/).test(password)){
-    $("#err-pwd").text("Password must have atleast one upper case letter").show();
+    $("#signup-err-pwd").text("Password must have atleast one upper case letter").show();
     return false;
   }
   if(!(/[a-z]+/).test(password)){
-    $("#err-pwd").text("Password must have atleast one lower case letter").show();
+    $("#signup-err-pwd").text("Password must have atleast one lower case letter").show();
     return false;
   }
   if(!(/[0-9]+/).test(password)){
-    $("#err-pwd").text("Password must have atleast one digit").show();
+    $("#signup-err-pwd").text("Password must have atleast one digit").show();
     return false;
   }
   if(!(/[^a-zA-Z0-9]+/).test(password)){
-    $("#err-pwd").text("Password must have atleast one special character").show();
+    $("#signup-err-pwd").text("Password must have atleast one special character").show();
     return false;
   }
-  $("#err-pwd").hide();
+  $("#signup-err-pwd").hide();
   return true;
 }
 
@@ -84,34 +110,34 @@ function testPassword(password) {
   It verifies if the password follows all constraints.
   Else it shows the first un-sattisfied constraint.
 */
-function testRepeatPassword(password) {
+function testSignupRepeatPassword(password) {
   if(!(password.length >= 8)){
-    $("#err-repeat-pwd").text("Password length should be greater than 7").show();
+    $("#signup-err-repeat-pwd").text("Password length should be greater than 7").show();
     return false;
   }
   if(!(/[A-Z]+/).test(password)){
-    $("#err-repeat-pwd").text("Password must have atleast one upper case letter").show();
+    $("#signup-err-repeat-pwd").text("Password must have atleast one upper case letter").show();
     return false;
   }
   if(!(/[a-z]+/).test(password)){
-    $("#err-repeat-pwd").text("Password must have atleast one lower case letter").show();
+    $("#signup-err-repeat-pwd").text("Password must have atleast one lower case letter").show();
     return false;
   }
   if(!(/[0-9]+/).test(password)){
-    $("#err-repeat-pwd").text("Password must have atleast one digit").show();
+    $("#signup-err-repeat-pwd").text("Password must have atleast one digit").show();
     return false;
   }
   if(!(/[^a-zA-Z0-9]+/).test(password)){
-    $("#err-repeat-pwd").text("Password must have atleast one special character").show();
+    $("#signup-err-repeat-pwd").text("Password must have atleast one special character").show();
     return false;
   }
   if($("#pwd").val() == $("#repeat-pwd").val()){
     console.log("correct pwd");
   }else{
-    $("#err-repeat-pwd").text("Password does not match.").show();
+    $("#signup-err-repeat-pwd").text("Password does not match.").show();
     return false;
   }  
-  $("#err-repeat-pwd").hide();
+  $("#signup-err-repeat-pwd").hide();
   return true;
 }
 

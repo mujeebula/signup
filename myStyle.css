@@ -3,15 +3,24 @@
 	display: flex;
 	align-items: center
 }
-
-body{
-	padding-top: 30px;
+.login-background{
+    background-color: #1abc9c;
 }
-
+body{
+    padding-top: 30px;
+}
+hr.divider{
+    border-top: 1px solid #8c8b8b;
+    border-bottom: 1px solid #fff;
+}
+.to-bottom{
+    margin-top: 35px;
+}
 @media screen and (min-width: 1200px) {
     .to-left{
     	margin-left: -60px;
     }
+
     #middleName{
     	margin-left: -100px;
     }
